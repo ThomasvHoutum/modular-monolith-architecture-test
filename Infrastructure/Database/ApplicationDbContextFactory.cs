@@ -16,10 +16,12 @@ namespace Infrastructure.Database
             optionsBuilder.UseSqlite(connectionString);
 
             var services = new ServiceCollection();
-            // Register the Warning feature configurator (and others if needed).
+            
+            // Register features to create initial database
             services.AddTransient<IModelConfigurator, UserModelConfigurator>();
-
-            // Build a temporary provider and get all the IModelConfigurator implementations.
+            
+            // Hate having to register the features here, because it creates a reference to the feature's project for every feature that will be used.
+            
             using var serviceProvider = services.BuildServiceProvider();
             var configurators = serviceProvider.GetServices<IModelConfigurator>();
 
