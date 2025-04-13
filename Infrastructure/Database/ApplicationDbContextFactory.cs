@@ -12,7 +12,7 @@ namespace Infrastructure.Database
         {
             var connectionString = "Data Source=database.db";
 
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
             optionsBuilder.UseSqlite(connectionString);
 
             var services = new ServiceCollection();

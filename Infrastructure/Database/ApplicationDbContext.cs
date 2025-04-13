@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : DatabaseContext
 {
     private readonly IEnumerable<IModelConfigurator> _modelConfigurators;
 
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IEnumerable<IModelConfigurator> modelConfigurators) : base(options)
+    public ApplicationDbContext(DbContextOptions<DatabaseContext> options, IEnumerable<IModelConfigurator> modelConfigurators) : base(options)
     {
         _modelConfigurators = modelConfigurators;
     }
