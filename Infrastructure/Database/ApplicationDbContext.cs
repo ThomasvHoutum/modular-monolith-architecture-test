@@ -1,23 +1,23 @@
-using Domain.Interfaces;
+using Core.Modules.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database;
 
-public class ApplicationDbContext : DatabaseContext
+public class ApplicationDbContext : DbContext
 {
-    private readonly IEnumerable<IModelConfigurator> _modelConfigurators;
+    private readonly IEnumerable<IModule> _modules;
 
-    public ApplicationDbContext(DbContextOptions<DatabaseContext> options, IEnumerable<IModelConfigurator> modelConfigurators) : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IEnumerable<IModule> modules)
+        : base(options)
     {
-        _modelConfigurators = modelConfigurators;
+        _modules = modules;
     }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
-        // Apply configurations from model configurators
-        foreach (var configurator in _modelConfigurators)
-            configurator.Configure(modelBuilder);
+
+        foreach (var module in _modules)
+            module.ConfigureDatabase(modelBuilder);
     }
 }

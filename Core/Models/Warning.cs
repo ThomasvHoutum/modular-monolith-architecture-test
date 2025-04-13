@@ -1,8 +1,6 @@
-using Domain.Models.Interfaces;
+namespace Core.Models;
 
-namespace Domain.Models;
-
-public class Warning : IBaseModel
+public class Warning
 {
     public int Id { get; set; }
     
@@ -10,5 +8,5 @@ public class Warning : IBaseModel
     
     public string Message { get; set; } = string.Empty;
     
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 }

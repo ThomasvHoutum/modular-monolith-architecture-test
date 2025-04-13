@@ -1,26 +1,21 @@
-using Domain.Interfaces;
+using API.Extensions;
 using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
-using UserFeature.Database;
-using UserFeature.Services;
-using UserFeature.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+// Register each module and let them add their own services.
+foreach (var module in ActiveModuleList.Modules)
+{
+    builder.Services.AddSingleton(module);
+    module.ConfigureServices(builder.Services);
+}
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
-
-// Register features here
-builder.Services.AddTransient<IModelConfigurator, UserModelConfigurator>();
-
-// Bruh
-builder.Services.AddTransient<DatabaseContext>();
-
-// TODO: Let feature register their own services
-builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
