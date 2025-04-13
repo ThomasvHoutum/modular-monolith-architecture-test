@@ -223,3 +223,6 @@ AppPackages/
 
 # Custom project ignores
 logs/
+
+API/database.db-shm
+API/database.db-wal
