@@ -1,4 +1,4 @@
-using API.Extensions;
+using API;
 using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;

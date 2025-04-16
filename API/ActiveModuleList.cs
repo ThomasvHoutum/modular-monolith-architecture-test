@@ -1,13 +1,12 @@
 using Core.Modules.Interfaces;
 
-namespace API.Extensions
+namespace API;
+
+public static class ActiveModuleList
 {
-    public static class ActiveModuleList
+    // Add all active modules to this list
+    public static List<IModule> Modules => new()
     {
-        // Add all active modules to this list
-        public static List<IModule> Modules => new()
-        {
-            new WarningModule.ModuleActivator()
-        };
-    }
+        new WarningModule.ModuleActivator()
+    };
 }
