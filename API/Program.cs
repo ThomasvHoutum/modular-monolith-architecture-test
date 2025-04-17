@@ -1,13 +1,13 @@
-using Infrastructure.Database;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.Database; 
 using Scalar.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using WarningModule.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = builder.Configuration
+    .GetConnectionString("DefaultConnection");
 
-// Register each module and let them add their own services.
 builder.Services.AddWarningModule();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
